@@ -1,4 +1,4 @@
-# TruncURL
+# URL Shortener
 
 
 <div align="center" style="margin-bottom: 10px;" >
