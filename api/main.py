@@ -1,7 +1,7 @@
 import uvicorn
 import database
 import config
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime
 from typing import List
@@ -11,6 +11,9 @@ from models.user import CreateUser, User
 from models.auth import LoginResponse
 from services.link import LinksService
 from services.auth import AuthService
+
+import listeners.link
+from events.links import LinkEventType, LinkEvent, LinkEventData, emit_link_event
 
 
 
@@ -71,7 +74,7 @@ def analytics():
 
 
 @app.post('/links')
-def create_link(body: CreateLink, user: User | None = Depends(get_optional_user)) -> Link:
+def create_link(body: CreateLink, request: Request, user: User | None = Depends(get_optional_user)) -> Link:
     link_service = LinksService()
 
     body.user_id = user.id if user else None
@@ -79,6 +82,19 @@ def create_link(body: CreateLink, user: User | None = Depends(get_optional_user)
         body.created_at = datetime.now()
 
     data = link_service.create(body)
+
+    # Event
+    event = LinkEvent(
+        event_type=LinkEventType.LINK_CREATED,
+        data=LinkEventData(
+            ip=request.client.host,
+            link= data,
+            user=user,
+            user_id=body.user_id
+        )
+    )
+    emit_link_event(LinkEventType.LINK_CREATED, event)
+
     return data
 
 
@@ -88,6 +104,7 @@ def get_link(hash: str) -> Link:
     data = link_service.find_one(hash)
     if not data:
         raise HTTPException(status_code=404, detail="Cannot found this link")
+
     return data
 
 
@@ -101,5 +118,9 @@ if __name__ == "__main__":
             "port": 3000,
             "debug": True,
         }
+
+    # Setup listeners
+    link_listener = listeners.link.LinkListener()
+    link_listener.setup()
 
     uvicorn.run(app, **app_config)
