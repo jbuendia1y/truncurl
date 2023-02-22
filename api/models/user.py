@@ -12,6 +12,11 @@ class User(BaseModel):
     password: str
 
 
+class UpdateUser(BaseModel):
+    first_name: str | None = None
+    last_name: str | None = None
+
+
 class CreateUser(BaseModel):
     first_name: str | None = None
     last_name: str | None = None
