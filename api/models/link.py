@@ -1,6 +1,8 @@
 from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import datetime
+from enum import Enum
+from models.user import User
 
 import utils
 
@@ -10,6 +12,7 @@ class Link(BaseModel):
     url: str
     hash: str
     user_id: Optional[str] = None
+    user: Optional[User] = None
     created_at: datetime
 
 
@@ -18,7 +21,7 @@ class CreateLink(BaseModel):
     name: Optional[str] = None
     user_id: Optional[str] = None
     hash: Optional[str] = None
-    created_at: Optional[datetime] = Field(default_factory=lambda _: datetime.now())
+    created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now())
 
     
     def hash_url(self):
