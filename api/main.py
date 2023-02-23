@@ -12,7 +12,7 @@ from models.auth import LoginResponse
 from services.link import LinksService
 from services.auth import AuthService
 
-import listeners.link
+import listeners
 from events.links import LinkEventType, LinkEvent, LinkEventData, emit_link_event
 
 
@@ -117,10 +117,10 @@ if __name__ == "__main__":
             "host": "0.0.0.0",
             "port": 3000,
             "debug": True,
+            "reload": True,
         }
 
     # Setup listeners
-    link_listener = listeners.link.LinkListener()
-    link_listener.setup()
+    listeners.setup_listeners()
 
     uvicorn.run(app, **app_config)
