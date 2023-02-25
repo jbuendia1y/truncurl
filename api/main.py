@@ -116,11 +116,9 @@ if __name__ == "__main__":
         app_config = {
             "host": "0.0.0.0",
             "port": 3000,
-            "debug": True,
-            "reload": True,
         }
 
     # Setup listeners
     listeners.setup_listeners()
 
-    uvicorn.run(app, **app_config)
+    uvicorn.run("main:app" if not config.PROD else app, **app_config)

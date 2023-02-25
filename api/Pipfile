@@ -10,6 +10,8 @@ pymongo = "*"
 bcrypt = "*"
 python-jose = "*"
 python-multipart = "*"
+anyio = "*"
+redis = {extras = ["hiredis"], version = "*"}
 
 [dev-packages]
 
