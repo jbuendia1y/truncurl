@@ -9,7 +9,7 @@ from models.link import Link
 from models.user import User
 
 
-class LinkEventType(Enum):
+class LinkEventType(str, Enum):
     LINK_CREATED = "LINK_CREATED"
     LINK_UPDATED = "LINK_UPDATED"
     LINK_DELETED = "LINK_DELETED"
