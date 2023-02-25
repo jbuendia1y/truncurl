@@ -8,7 +8,6 @@ from bson import ObjectId
 from fastapi import HTTPException
 
 import pymongo.errors
-# from events.links import emit_link_event, LinkEventType
 
 
 class LinksService:
@@ -21,7 +20,7 @@ class LinksService:
             url=doc['url'],
             hash=doc['hash'],
             user_id=doc['user_id'],
-            user=User(**doc['user']),
+            user=User(**doc['user']) if doc['user'] else None,
             created_at=doc['created_at']
         )
 
@@ -36,13 +35,15 @@ class LinksService:
             user = self.users_service.find_one(dto.user_id)
             if not user:
                 raise HTTPException(status_code=409, detail="Wrong user_id")
-                
-            data.update({ 
-                "user": user.dict(), 
+
+            data.update({
+                "user": user.dict(),
                 "user_id": dto.user_id
             })
-        return data
+        else:
+            data['user'] = None
 
+        return data
 
     def create(self, body: CreateLink) -> Link:
         try:
@@ -57,9 +58,9 @@ class LinksService:
         docs = self.collection.find(filter.dict())
         links = [self.adapter(doc) for doc in docs]
         return links
-    
+
     def find_one(self, hash: str) -> Link:
-        doc = self.collection.find_one({ "hash": hash })
+        doc = self.collection.find_one({"hash": hash})
         if not doc:
             return None
 
@@ -67,10 +68,10 @@ class LinksService:
         return link
 
     def find_one_by_id(self, id: str):
-        doc = self.collection.find_one({ "_id": ObjectId(id) })
+        doc = self.collection.find_one({"_id": ObjectId(id)})
         if not doc:
             return None
-        
+
         return self.adapter(doc)
 
     def get_analytics(self):

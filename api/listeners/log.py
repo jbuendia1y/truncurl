@@ -29,7 +29,7 @@ class LogListener:
         logging.info(f"Link updated by USER:[{data.data.user_id}]")
 
     def setup(self):
-        subscribe(LinkEventType.LINK_CREATED, self.handle_link_created_event)
-        subscribe(LinkEventType.LINK_DELETED, self.handle_link_deleted_event)
-        subscribe(LinkEventType.LINK_UPDATED, self.handle_link_updated_event)
-        subscribe(LinkEventType.LINK_USED, self.handle_link_used_event)
+        subscribe(LinkEventType.LINK_CREATED.value, self.handle_link_created_event)
+        subscribe(LinkEventType.LINK_DELETED.value, self.handle_link_deleted_event)
+        subscribe(LinkEventType.LINK_UPDATED.value, self.handle_link_updated_event)
+        subscribe(LinkEventType.LINK_USED.value, self.handle_link_used_event)
