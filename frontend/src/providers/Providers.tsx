@@ -1,12 +1,16 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import AuthProvider from "./auth.provider";
 import SidenavProvider from "./sidenav.provider";
 
 const Providers = (props: { children: any }) => {
   const { children } = props;
+
   return (
-    <ChakraProvider>
-      <SidenavProvider>{children}</SidenavProvider>
-    </ChakraProvider>
+    <AuthProvider>
+      <ChakraProvider>
+        <SidenavProvider>{children}</SidenavProvider>
+      </ChakraProvider>
+    </AuthProvider>
   );
 };
 
