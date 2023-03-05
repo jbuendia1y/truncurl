@@ -1,20 +1,10 @@
-import { Sidenav } from "./components";
-import {
-  Configuration,
-  EnterCode,
-  Home,
-  Links,
-  Login,
-  NewPassword,
-  RecoverPassword,
-  Register,
-  Tags,
-} from "./pages";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
 
 function App() {
   return (
     <>
-      <Register />
+      <RouterProvider router={router} />
     </>
   );
 }
