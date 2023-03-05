@@ -6,19 +6,11 @@ import {
   Link,
   List,
   ListItem,
-  useMediaQuery,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 import { AppBar, Sidenav } from "../../components";
-import { Profile, Webhooks } from "./views";
 
 const Configuration = () => {
-  const [isLarger] = useMediaQuery("(min-width: 1024px)");
-  const [currentPath, setCurrentPath] = useState(window.location.href);
-  useEffect(() => {
-    setCurrentPath(window.location.href);
-  }, [window.location.href]);
-
   return (
     <Box display="flex">
       <Sidenav />
@@ -34,14 +26,14 @@ const Configuration = () => {
             <Divider marginBottom={5} />
             <List>
               <ListItem>
-                <Link href="/config/profile">Perfil</Link>
+                <Link href="/settings/profile">Perfil</Link>
               </ListItem>
               <ListItem>
-                <Link href="/config/webhooks">Webhooks</Link>
+                <Link href="/settings/webhooks">Webhooks</Link>
               </ListItem>
             </List>
           </Box>
-          {currentPath.includes("/config/profile") ? <Profile /> : <Webhooks />}
+          <Outlet />
         </Container>
       </Box>
     </Box>
