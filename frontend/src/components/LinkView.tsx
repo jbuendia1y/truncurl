@@ -15,13 +15,15 @@ import { formatDate } from "../utils";
 
 interface Props {
   data: ILink;
+  onEdit: () => void;
 }
 
 const LinkView = (props: Props) => {
-  const { data } = props;
-  const { onCopy, hasCopied } = useClipboard(
-    `http://localhost:5173/${data.hash}`
-  );
+  const { data, onEdit } = props;
+  const domain = import.meta.env.PROD
+    ? "https://myawesomedomain.com/"
+    : "http://localhost:5173/";
+  const { onCopy, hasCopied } = useClipboard(`${domain}${data.hash}`);
 
   return (
     <Box>
@@ -34,6 +36,7 @@ const LinkView = (props: Props) => {
             leftIcon={<FontAwesomeIcon icon={faPen} />}
             colorScheme="blue"
             size="sm"
+            onClick={onEdit}
           >
             Editar
           </Button>
@@ -45,12 +48,9 @@ const LinkView = (props: Props) => {
       </Stack>
 
       <Stack direction="row" alignItems="center" flexWrap="wrap" marginTop={5}>
-        <Link
-          href={`http://localhost:5173/${data.hash}`}
-          color="blue.500"
-          fontSize="2xl"
-        >
-          localhost:5173/{data.hash}
+        <Link href={`${domain}${data.hash}`} color="blue.500" fontSize="2xl">
+          {domain.split("//")[1]}
+          {data.hash}
         </Link>
         <Button
           leftIcon={<FontAwesomeIcon icon={faCopy} />}

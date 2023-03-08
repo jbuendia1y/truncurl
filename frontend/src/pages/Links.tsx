@@ -1,9 +1,4 @@
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
   Box,
   Button,
   Container,
@@ -19,29 +14,37 @@ import {
   Stack,
   useMediaQuery,
 } from "@chakra-ui/react";
-import {
-  faCloudArrowDown,
-  faFilter,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCloudArrowDown, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { AppBar, LinkCard, LinkView, Sidenav } from "../components";
+import {
+  AppBar,
+  CreateLink,
+  LinkCard,
+  LinkFilters,
+  LinkView,
+  Sidenav,
+} from "../components";
+import EditLink from "../components/EditLink";
+import { useLinks } from "../hooks";
 
 const Links = () => {
   const [isLarger] = useMediaQuery("(min-width: 1024px)");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({
+    content: false,
+    edit: false,
+    create: false,
+  });
 
-  const onClose = () => {
-    setOpen(false);
+  const { links, filter, changeFilter, loading, selectedLink, selectLink } =
+    useLinks();
+
+  const onClose = (key: keyof typeof open) => {
+    return () => setOpen((v) => ({ ...v, [key]: false }));
   };
 
-  const MockLink = {
-    createdAt: new Date(),
-    hash: "bD25Os",
-    url: "https://google.com",
-    name: "Google",
-    userId: "MY_USER_ID",
+  const onOpen = (key: keyof typeof open) => {
+    return () => setOpen((v) => ({ ...v, [key]: true }));
   };
 
   return (
@@ -60,6 +63,7 @@ const Links = () => {
                 colorScheme="blue"
                 size="sm"
                 leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                onClick={onOpen("create")}
               >
                 Nuevo
               </Button>
@@ -73,53 +77,54 @@ const Links = () => {
               </Button>
             </Stack>
           </Flex>
-          <Accordion allowToggle marginY={2.5}>
-            <AccordionItem>
-              <p>
-                <AccordionButton>
-                  <Box as="span" flex="1" textAlign="left">
-                    {" "}
-                    <FontAwesomeIcon icon={faFilter} /> Filtros
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </p>
-              <AccordionPanel>Filtros</AccordionPanel>
-            </AccordionItem>
-          </Accordion>
-
+          <LinkFilters changeFilter={changeFilter} filters={filter} />
+          <CreateLink open={open.create} onClose={onClose("create")} />
+          {selectedLink && open.edit && (
+            <EditLink
+              open={open.edit}
+              onClose={onClose("edit")}
+              link={selectedLink}
+            />
+          )}
           <Grid gridTemplateColumns={".4fr 1fr"}>
             <Stack>
-              {Array(10)
-                .fill(0)
-                .map((_, idx) => (
+              {loading ? (
+                <></>
+              ) : (
+                links.map((v) => (
                   <LinkCard
-                    key={MockLink.hash + idx}
-                    data={MockLink}
+                    key={v.hash}
+                    data={v}
                     onClick={() => {
-                      setOpen(true);
+                      selectLink(v.id);
+                      onOpen("content")();
                     }}
                   />
-                ))}
+                ))
+              )}
             </Stack>
-            {isLarger ? (
-              <LinkView data={MockLink} />
+            {selectedLink ? (
+              isLarger ? (
+                <LinkView data={selectedLink} onEdit={onOpen("edit")} />
+              ) : (
+                <Drawer
+                  isOpen={open.content}
+                  placement="right"
+                  size="full"
+                  onClose={onClose("content")}
+                >
+                  <DrawerOverlay />
+                  <DrawerContent>
+                    <DrawerCloseButton />
+                    <DrawerHeader>Link</DrawerHeader>
+                    <DrawerBody>
+                      <LinkView data={selectedLink} onEdit={onOpen("edit")} />
+                    </DrawerBody>
+                  </DrawerContent>
+                </Drawer>
+              )
             ) : (
-              <Drawer
-                isOpen={open}
-                placement="right"
-                size="full"
-                onClose={onClose}
-              >
-                <DrawerOverlay />
-                <DrawerContent>
-                  <DrawerCloseButton />
-                  <DrawerHeader>Link</DrawerHeader>
-                  <DrawerBody>
-                    <LinkView data={MockLink} />
-                  </DrawerBody>
-                </DrawerContent>
-              </Drawer>
+              <></>
             )}
           </Grid>
         </Container>
