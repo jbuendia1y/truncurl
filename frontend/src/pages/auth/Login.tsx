@@ -19,6 +19,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import { AppBar } from "../../components";
+import { useAuth } from "../../hooks";
 
 interface Form {
   email: string;
@@ -26,9 +27,12 @@ interface Form {
 }
 
 const Login = () => {
+  const { login } = useAuth();
   const { handleSubmit, register } = useForm<Form>();
 
-  const onSubmit = async (fields: Form) => {};
+  const onSubmit = async (fields: Form) => {
+    await login(fields.email, fields.password);
+  };
 
   return (
     <Box>

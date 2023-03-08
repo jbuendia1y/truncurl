@@ -9,7 +9,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  useMediaQuery,
 } from "@chakra-ui/react";
 import {
   faBars,
@@ -17,12 +16,12 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSidenav } from "../hooks";
+import { useAuth, useSidenav } from "../hooks";
+import { Link as ReactLink } from "react-router-dom";
 
 const AppBar = () => {
   const { toggle } = useSidenav();
-  const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
-  const { user } = { user: true };
+  const { user, logout } = useAuth();
 
   if (user) {
     return (
@@ -38,13 +37,9 @@ const AppBar = () => {
         top="0"
         zIndex="2"
       >
-        {!isLargerThanMd ? (
-          <Button onClick={toggle}>
-            <FontAwesomeIcon icon={faBars} />
-          </Button>
-        ) : (
-          <></>
-        )}
+        <Button onClick={toggle}>
+          <FontAwesomeIcon icon={faBars} />
+        </Button>
         <Box></Box>
         <Menu>
           <MenuButton>
@@ -57,7 +52,7 @@ const AppBar = () => {
             />
           </MenuButton>
           <MenuList>
-            <MenuItem>
+            <MenuItem as={ReactLink} to="/settings/profile">
               <Box
                 mr="10px"
                 boxSize="2rem"
@@ -69,7 +64,7 @@ const AppBar = () => {
               </Box>
               Mi perfil
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={logout}>
               <Box
                 mr="10px"
                 boxSize="2rem"
@@ -91,10 +86,14 @@ const AppBar = () => {
     <Box paddingX={5} paddingY={2.5} boxShadow="base">
       <List display="flex" justifyContent="space-between">
         <ListItem>
-          <Link href="/">Home</Link>
+          <Link as={ReactLink} to="/">
+            Home
+          </Link>
         </ListItem>
         <ListItem>
-          <Link href="/">Iniciar sessión</Link>
+          <Link as={ReactLink} to="/auth/login">
+            Iniciar sessión
+          </Link>
         </ListItem>
       </List>
     </Box>
