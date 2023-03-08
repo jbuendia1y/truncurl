@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "../components";
 import {
   Configuration,
@@ -72,6 +72,10 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
+      {
+        path: "",
+        element: <Navigate to="profile" />,
+      },
       {
         path: "profile",
         element: <Profile />,

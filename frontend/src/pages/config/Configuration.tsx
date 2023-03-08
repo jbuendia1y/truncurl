@@ -7,7 +7,7 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link as ReactLink } from "react-router-dom";
 import { AppBar, Sidenav } from "../../components";
 
 const Configuration = () => {
@@ -26,10 +26,14 @@ const Configuration = () => {
             <Divider marginBottom={5} />
             <List>
               <ListItem>
-                <Link href="/settings/profile">Perfil</Link>
+                <Link as={ReactLink} to="/settings/profile">
+                  Perfil
+                </Link>
               </ListItem>
               <ListItem>
-                <Link href="/settings/webhooks">Webhooks</Link>
+                <Link as={ReactLink} to="/settings/webhooks">
+                  Webhooks
+                </Link>
               </ListItem>
             </List>
           </Box>
