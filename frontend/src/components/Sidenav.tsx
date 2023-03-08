@@ -5,27 +5,18 @@ import {
   Link,
   List,
   ListItem,
-  ListIcon,
   Text,
-  useMediaQuery,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import {
   faChevronLeft,
-  faCode,
   faGear,
   faHome,
   faLink,
-  faRightToBracket,
-  faTag,
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  FontAwesomeIcon,
-  FontAwesomeIconProps,
-} from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSidenav } from "../hooks";
+import { Link as ReactLink } from "react-router-dom";
 
 const SidenavIcon = (props: { icon: any }) => {
   return (
@@ -58,7 +49,13 @@ const SidenavItem = (props: { icon: any; label: string; href: string }) => {
         filter: "brightness(90%)",
       }}
     >
-      <Link display="flex" alignItems="center" width="100%" href={href}>
+      <Link
+        as={ReactLink}
+        display="flex"
+        alignItems="center"
+        width="100%"
+        to={href}
+      >
         <SidenavIcon icon={icon} />
         {label}
       </Link>
@@ -85,8 +82,7 @@ const links: { icon: any; label: string; href: string }[] = [
 ];
 
 const Sidenav = () => {
-  const [isLargerThan900] = useMediaQuery("(min-width: 48em)");
-  const { open, toggle } = useSidenav();
+  const { open, toggle, isLargerThan900 } = useSidenav();
 
   return (
     <Box
