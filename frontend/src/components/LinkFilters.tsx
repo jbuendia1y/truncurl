@@ -10,17 +10,17 @@ import {
   FormLabel,
   Input,
   Stack,
-} from "@chakra-ui/react";
-import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useForm } from "react-hook-form";
-import { useLinks } from "../hooks";
+} from '@chakra-ui/react';
+import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useForm } from 'react-hook-form';
+import { useLinks } from '../hooks';
 
-type Filter = ReturnType<typeof useLinks>["filter"];
+type Filter = ReturnType<typeof useLinks>['filter'];
 
 const LinkFilters = (props: {
   filters: Filter;
-  changeFilter: ReturnType<typeof useLinks>["changeFilter"];
+  changeFilter: ReturnType<typeof useLinks>['changeFilter'];
 }) => {
   const { changeFilter, filters } = props;
   const { register, handleSubmit } = useForm<Filter>({
@@ -37,32 +37,32 @@ const LinkFilters = (props: {
       <AccordionItem>
         <p>
           <AccordionButton>
-            <Box as="span" flex="1" textAlign="left">
+            <Box as='span' flex='1' textAlign='left'>
               <FontAwesomeIcon icon={faFilter} /> Filtros
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </p>
-        <AccordionPanel as="form" onSubmit={handleSubmit(onSubmit)}>
+        <AccordionPanel as='form' onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={5}>
             <FormControl>
               <FormLabel>Nombre</FormLabel>
-              <Input placeholder="Redirect name" {...register("name")} />
+              <Input placeholder='Redirect name' {...register('name')} />
             </FormControl>
             <FormControl>
               <FormLabel>URL</FormLabel>
               <Input
-                placeholder="example: google.com or mydomain/s2cdid8"
-                {...register("url")}
+                placeholder='example: google.com or mydomain/s2cdid8'
+                {...register('url')}
               />
             </FormControl>
           </Stack>
-          <Stack direction="row" justifyContent="flex-end" marginTop={3}>
+          <Stack direction='row' justifyContent='flex-end' marginTop={3}>
             <Button
-              colorScheme="blue"
-              size="sm"
+              colorScheme='blue'
+              size='sm'
               leftIcon={<FontAwesomeIcon icon={faSearch} />}
-              type="submit"
+              type='submit'
             >
               Buscar
             </Button>

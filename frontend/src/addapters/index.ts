@@ -1,1 +1,1 @@
-export * from "./link.addapter";
+export * from './link.addapter';

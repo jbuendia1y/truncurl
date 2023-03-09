@@ -1,5 +1,5 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import { ProtectedRoute } from "../components";
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { ProtectedRoute } from '../components';
 import {
   Configuration,
   EnterCode,
@@ -10,38 +10,38 @@ import {
   RecoverPassword,
   Register,
   Tags,
-} from "../pages";
-import { Profile, Webhooks } from "../pages/config/views";
+} from '../pages';
+import { Profile, Webhooks } from '../pages/config/views';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Home />,
   },
   {
-    path: "/auth",
+    path: '/auth',
     children: [
       {
-        path: "login",
+        path: 'login',
         element: <Login />,
       },
       {
-        path: "register",
+        path: 'register',
         element: <Register />,
       },
       {
-        path: "recover-password",
+        path: 'recover-password',
         children: [
           {
-            path: "",
+            path: '',
             element: <RecoverPassword />,
           },
           {
-            path: "code",
+            path: 'code',
             element: <EnterCode />,
           },
           {
-            path: "reset",
+            path: 'reset',
             element: <NewPassword />,
           },
         ],
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/links",
+    path: '/links',
     element: (
       <ProtectedRoute>
         <Links />
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/tags",
+    path: '/tags',
     element: (
       <ProtectedRoute>
         <Tags />
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/settings",
+    path: '/settings',
     element: (
       <ProtectedRoute>
         <Configuration />
@@ -73,15 +73,15 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "",
-        element: <Navigate to="profile" />,
+        path: '',
+        element: <Navigate to='profile' />,
       },
       {
-        path: "profile",
+        path: 'profile',
         element: <Profile />,
       },
       {
-        path: "webhooks",
+        path: 'webhooks',
         element: <Webhooks />,
       },
     ],

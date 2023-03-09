@@ -1,4 +1,4 @@
-import { IEndpointLink, ILink } from "../models";
+import { IEndpointLink, ILink } from '../models';
 
 export function createLinkAddapted(ed: IEndpointLink): ILink {
   return {

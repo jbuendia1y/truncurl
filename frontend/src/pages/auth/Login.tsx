@@ -10,16 +10,16 @@ import {
   Link,
   Stack,
   Text,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import {
   faFacebook,
   faGithub,
   faGoogle,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useForm } from "react-hook-form";
-import { AppBar } from "../../components";
-import { useAuth } from "../../hooks";
+} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useForm } from 'react-hook-form';
+import { AppBar } from '../../components';
+import { useAuth } from '../../hooks';
 
 interface Form {
   email: string;
@@ -37,14 +37,14 @@ const Login = () => {
   return (
     <Box>
       <AppBar />
-      <Container textAlign="center" marginTop={10}>
+      <Container textAlign='center' marginTop={10}>
         <Box marginBottom={5}>
-          <Heading as="h1" size="2xl">
+          <Heading as='h1' size='2xl'>
             Accede y comienza
           </Heading>
           <Text>
-            No tienes cuenta?{" "}
-            <Link href="/auth/register" color="blue.500">
+            No tienes cuenta?{' '}
+            <Link href='/auth/register' color='blue.500'>
               regístrate
             </Link>
           </Text>
@@ -53,53 +53,53 @@ const Login = () => {
           <FormControl marginBottom={5}>
             <FormLabel>Correo electrónico</FormLabel>
             <Input
-              type="email"
-              placeholder="example@example.com"
+              type='email'
+              placeholder='example@example.com'
               isRequired
-              size="lg"
-              {...register("email", { required: true })}
+              size='lg'
+              {...register('email', { required: true })}
             />
           </FormControl>
           <FormControl marginBottom={5}>
             <FormLabel>Contraseña</FormLabel>
             <Input
-              type="password"
-              placeholder="**********"
+              type='password'
+              placeholder='**********'
               isRequired
-              size="lg"
-              {...register("password", { required: true })}
+              size='lg'
+              {...register('password', { required: true })}
             />
           </FormControl>
-          <Button type="submit" width="100%" variant="solid" colorScheme="blue">
+          <Button type='submit' width='100%' variant='solid' colorScheme='blue'>
             Iniciar sessión
           </Button>
         </form>
         <Link
-          href="auth/password/recover"
-          color="blue.500"
-          display="block"
+          href='auth/password/recover'
+          color='blue.500'
+          display='block'
           marginY={2.5}
         >
           Olvidaste tu contraseña ?
         </Link>
         <Stack>
           <Button
-            variant="outline"
-            colorScheme="gray"
+            variant='outline'
+            colorScheme='gray'
             leftIcon={<FontAwesomeIcon icon={faGoogle} />}
           >
             Google
           </Button>
           <Button
-            variant="outline"
-            colorScheme="facebook"
+            variant='outline'
+            colorScheme='facebook'
             leftIcon={<FontAwesomeIcon icon={faFacebook} />}
           >
             Facebook
           </Button>
           <Button
-            variant="outline"
-            colorScheme="gray"
+            variant='outline'
+            colorScheme='gray'
             leftIcon={<FontAwesomeIcon icon={faGithub} />}
           >
             Github

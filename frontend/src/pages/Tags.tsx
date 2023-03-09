@@ -8,11 +8,11 @@ import {
   Heading,
   Stack,
   Text,
-} from "@chakra-ui/react";
-import { faPen, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { AppBar, Sidenav } from "../components";
+} from '@chakra-ui/react';
+import { faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
+import { AppBar, Sidenav } from '../components';
 
 const Tags = () => {
   const [selecteds, setSelecteds] = useState<string[]>([]);
@@ -22,49 +22,49 @@ const Tags = () => {
   };
 
   const onDelete = () => {
-    alert("Estás seguro de eliminar " + selecteds.length + " etiquetas");
+    alert('Estás seguro de eliminar ' + selecteds.length + ' etiquetas');
   };
 
   const onEdit = () => {};
 
   const MockTag = {
-    id: "2d35dv64hbC",
-    name: "Social",
+    id: '2d35dv64hbC',
+    name: 'Social',
   };
 
   return (
-    <Box display="flex">
+    <Box display='flex'>
       <Sidenav />
-      <Box width="100%">
+      <Box width='100%'>
         <AppBar />
-        <Container maxWidth="container.xl" marginTop={5}>
-          <Flex justifyContent="space-between" flexWrap={"wrap"} gap={2}>
-            <Heading as="h2" size="3xl">
+        <Container maxWidth='container.xl' marginTop={5}>
+          <Flex justifyContent='space-between' flexWrap={'wrap'} gap={2}>
+            <Heading as='h2' size='3xl'>
               Etiquetas
             </Heading>
-            <Stack direction="row" flexWrap={"wrap"}>
+            <Stack direction='row' flexWrap={'wrap'}>
               <Button
                 leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                colorScheme="blue"
-                variant="solid"
-                size="sm"
+                colorScheme='blue'
+                variant='solid'
+                size='sm'
               >
                 Añadir
               </Button>
               <Button
                 leftIcon={<FontAwesomeIcon icon={faPen} />}
-                colorScheme="blue"
-                variant="outline"
-                size="sm"
+                colorScheme='blue'
+                variant='outline'
+                size='sm'
                 isDisabled={selecteds.length !== 1}
               >
                 Editar
               </Button>
               <Button
                 leftIcon={<FontAwesomeIcon icon={faTrash} />}
-                colorScheme="blue"
-                variant="outline"
-                size="sm"
+                colorScheme='blue'
+                variant='outline'
+                size='sm'
                 isDisabled={selecteds.length === 0}
                 onClick={onDelete}
               >
@@ -72,9 +72,9 @@ const Tags = () => {
               </Button>
             </Stack>
           </Flex>
-          <Stack direction="row" marginY={2.5}>
-            <Text fontWeight="bold">Total: 2</Text>
-            <Text fontWeight="bold">Seleccionados: {selecteds.length}</Text>
+          <Stack direction='row' marginY={2.5}>
+            <Text fontWeight='bold'>Total: 2</Text>
+            <Text fontWeight='bold'>Seleccionados: {selecteds.length}</Text>
           </Stack>
           <CheckboxGroup onChange={onChange}>
             <Stack>

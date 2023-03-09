@@ -13,10 +13,10 @@ import {
   Heading,
   Stack,
   useMediaQuery,
-} from "@chakra-ui/react";
-import { faCloudArrowDown, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+} from '@chakra-ui/react';
+import { faCloudArrowDown, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
 import {
   AppBar,
   CreateLink,
@@ -24,12 +24,12 @@ import {
   LinkFilters,
   LinkView,
   Sidenav,
-} from "../components";
-import EditLink from "../components/EditLink";
-import { useLinks } from "../hooks";
+} from '../components';
+import EditLink from '../components/EditLink';
+import { useLinks } from '../hooks';
 
 const Links = () => {
-  const [isLarger] = useMediaQuery("(min-width: 1024px)");
+  const [isLarger] = useMediaQuery('(min-width: 1024px)');
   const [open, setOpen] = useState({
     content: false,
     edit: false,
@@ -48,29 +48,29 @@ const Links = () => {
   };
 
   return (
-    <Box display="flex">
+    <Box display='flex'>
       <Sidenav />
-      <Box width="100%">
+      <Box width='100%'>
         <AppBar />
-        <Container maxWidth="container.xl" marginTop={5}>
-          <Flex justifyContent="space-between" flexWrap={"wrap"}>
-            <Heading as="h2" size="3xl">
+        <Container maxWidth='container.xl' marginTop={5}>
+          <Flex justifyContent='space-between' flexWrap={'wrap'}>
+            <Heading as='h2' size='3xl'>
               Links
             </Heading>
-            <Stack direction="row">
+            <Stack direction='row'>
               <Button
-                variant="solid"
-                colorScheme="blue"
-                size="sm"
+                variant='solid'
+                colorScheme='blue'
+                size='sm'
                 leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                onClick={onOpen("create")}
+                onClick={onOpen('create')}
               >
                 Nuevo
               </Button>
               <Button
-                variant="outline"
-                colorScheme="blue"
-                size="sm"
+                variant='outline'
+                colorScheme='blue'
+                size='sm'
                 leftIcon={<FontAwesomeIcon icon={faCloudArrowDown} />}
               >
                 Exportar
@@ -78,15 +78,15 @@ const Links = () => {
             </Stack>
           </Flex>
           <LinkFilters changeFilter={changeFilter} filters={filter} />
-          <CreateLink open={open.create} onClose={onClose("create")} />
+          <CreateLink open={open.create} onClose={onClose('create')} />
           {selectedLink && open.edit && (
             <EditLink
               open={open.edit}
-              onClose={onClose("edit")}
+              onClose={onClose('edit')}
               link={selectedLink}
             />
           )}
-          <Grid gridTemplateColumns={".4fr 1fr"}>
+          <Grid gridTemplateColumns={'.4fr 1fr'}>
             <Stack>
               {loading ? (
                 <></>
@@ -97,7 +97,7 @@ const Links = () => {
                     data={v}
                     onClick={() => {
                       selectLink(v.id);
-                      onOpen("content")();
+                      onOpen('content')();
                     }}
                   />
                 ))
@@ -105,20 +105,20 @@ const Links = () => {
             </Stack>
             {selectedLink ? (
               isLarger ? (
-                <LinkView data={selectedLink} onEdit={onOpen("edit")} />
+                <LinkView data={selectedLink} onEdit={onOpen('edit')} />
               ) : (
                 <Drawer
                   isOpen={open.content}
-                  placement="right"
-                  size="full"
-                  onClose={onClose("content")}
+                  placement='right'
+                  size='full'
+                  onClose={onClose('content')}
                 >
                   <DrawerOverlay />
                   <DrawerContent>
                     <DrawerCloseButton />
                     <DrawerHeader>Link</DrawerHeader>
                     <DrawerBody>
-                      <LinkView data={selectedLink} onEdit={onOpen("edit")} />
+                      <LinkView data={selectedLink} onEdit={onOpen('edit')} />
                     </DrawerBody>
                   </DrawerContent>
                 </Drawer>

@@ -13,11 +13,11 @@ import {
   FormControl,
   FormLabel,
   Input,
-} from "@chakra-ui/react";
-import { createRef, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { ICreateLink, ILink } from "../models";
-import { LinksService } from "../services";
+} from '@chakra-ui/react';
+import { createRef, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { ICreateLink, ILink } from '../models';
+import { LinksService } from '../services';
 
 const EditLink = (props: {
   open: boolean;
@@ -47,50 +47,50 @@ const EditLink = (props: {
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
-        <DrawerHeader borderBottomWidth="1px">Editar link</DrawerHeader>
+        <DrawerHeader borderBottomWidth='1px'>Editar link</DrawerHeader>
         <DrawerBody>
           <Box
-            as="form"
+            as='form'
             onSubmit={handleSubmit(onSubmit)}
-            display="flex"
-            flexDirection="column"
+            display='flex'
+            flexDirection='column'
             gap={5}
           >
             <FormControl>
               <FormLabel>Nombre (opcional)</FormLabel>
-              <Input placeholder={"Nombre del link"} {...register("name")} />
+              <Input placeholder={'Nombre del link'} {...register('name')} />
             </FormControl>
             <FormControl isRequired>
               <FormLabel>URL</FormLabel>
               <Input
-                type="url"
-                placeholder={"example: https://google.com"}
-                {...register("url", { required: true })}
+                type='url'
+                placeholder={'example: https://google.com'}
+                {...register('url', { required: true })}
               />
             </FormControl>
-            <button hidden type="submit" ref={buttonRef}>
+            <button hidden type='submit' ref={buttonRef}>
               Guardar
             </button>
             {formState.isSubmitSuccessful && !error && (
-              <Alert variant="left-accent" status="success">
+              <Alert variant='left-accent' status='success'>
                 <AlertIcon />
                 Link creado
               </Alert>
             )}
             {error && (
-              <Alert variant="left-accent" status="error">
+              <Alert variant='left-accent' status='error'>
                 <AlertIcon />
                 Ocurrió un error !
               </Alert>
             )}
           </Box>
         </DrawerBody>
-        <DrawerFooter borderTopWidth="1px">
-          <Button variant="outline" mr={3} onClick={onClose}>
+        <DrawerFooter borderTopWidth='1px'>
+          <Button variant='outline' mr={3} onClick={onClose}>
             Cancelar
           </Button>
           <Button
-            colorScheme="blue"
+            colorScheme='blue'
             onClick={() => {
               buttonRef.current?.click();
             }}

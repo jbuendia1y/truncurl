@@ -1,32 +1,32 @@
-import { ICreateLink, ILink, LinkFilter } from "../models";
+import { ICreateLink, ILink, LinkFilter } from '../models';
 
 export class LinksService {
   links: ILink[] = [
     {
-      id: "MY_GOOGLE_LINK_ID",
-      url: "https://google.com",
-      hash: "google-hash",
+      id: 'MY_GOOGLE_LINK_ID',
+      url: 'https://google.com',
+      hash: 'google-hash',
       createdAt: new Date(),
-      name: "Google",
-      userId: "MY_USER_ID",
+      name: 'Google',
+      userId: 'MY_USER_ID',
     },
     {
-      id: "MY_FACEBOOK_LINK_ID",
-      url: "https://facebook.com",
-      hash: "facebook-hash",
+      id: 'MY_FACEBOOK_LINK_ID',
+      url: 'https://facebook.com',
+      hash: 'facebook-hash',
       createdAt: new Date(),
-      name: "Facebook",
-      userId: "MY_USER_ID",
+      name: 'Facebook',
+      userId: 'MY_USER_ID',
     },
   ];
 
   async create(data: ICreateLink): Promise<ILink> {
     const linkCreated: ILink = {
-      id: data.url + "_MY_LINK_ID",
+      id: data.url + '_MY_LINK_ID',
       hash: `my-hash-${this.links.length}`,
       createdAt: new Date(),
       url: data.url,
-      userId: "MY_USER_ID",
+      userId: 'MY_USER_ID',
       name: data.name,
     };
     this.links.push(linkCreated);
@@ -46,7 +46,7 @@ export class LinksService {
 
   async update(id: string, data: Partial<ICreateLink>): Promise<ILink> {
     const linkId = this.links.findIndex((v) => v.id === id);
-    if (!linkId) throw new Error("Link not exist");
+    if (!linkId) throw new Error('Link not exist');
     const link = {
       ...this.links[linkId],
       ...data,

@@ -1,22 +1,22 @@
-import { IUser } from "../models";
+import { IUser } from '../models';
 
 export class AuthService {
   // Handle Token
-  private _token = localStorage.getItem("AUTH_TOKEN");
+  private _token = localStorage.getItem('AUTH_TOKEN');
 
   get token() {
     return this._token;
   }
   set token(value: string | null) {
     if (!value) {
-      localStorage.removeItem("AUTH_TOKEN");
-    } else localStorage.setItem("AUTH_TOKEN", value);
+      localStorage.removeItem('AUTH_TOKEN');
+    } else localStorage.setItem('AUTH_TOKEN', value);
     this._token = value;
   }
 
   // Handle user
   private _user: IUser | undefined | null = JSON.parse(
-    localStorage.getItem("AUTH_USER") || "null"
+    localStorage.getItem('AUTH_USER') || 'null'
   );
 
   get user() {
@@ -24,21 +24,21 @@ export class AuthService {
   }
   set user(value: IUser | undefined | null) {
     localStorage.setItem(
-      "AUTH_USER",
+      'AUTH_USER',
       JSON.stringify(value === undefined ? null : value)
     );
     this._user = value;
   }
 
   async profile() {
-    if (!this.token) throw new Error("Cannot get the user token");
+    if (!this.token) throw new Error('Cannot get the user token');
     if (this.token && this.user) return this.user;
 
     const user = await Promise.resolve<IUser>({
-      firstName: "Example",
-      lastName: "Example",
-      username: "example",
-      email: "example@example.com",
+      firstName: 'Example',
+      lastName: 'Example',
+      username: 'example',
+      email: 'example@example.com',
     });
     this.user = user;
     return this.user;
@@ -49,12 +49,12 @@ export class AuthService {
       access_token: string;
       user: IUser;
     }>({
-      access_token: "MY_TOKEN",
+      access_token: 'MY_TOKEN',
       user: {
-        firstName: "Example",
-        lastName: "Example",
+        firstName: 'Example',
+        lastName: 'Example',
         username,
-        email: "example@example.com",
+        email: 'example@example.com',
       },
     });
 

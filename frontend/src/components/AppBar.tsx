@@ -9,15 +9,15 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import {
   faBars,
   faRightToBracket,
   faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAuth, useSidenav } from "../hooks";
-import { Link as ReactLink } from "react-router-dom";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAuth, useSidenav } from '../hooks';
+import { Link as ReactLink } from 'react-router-dom';
 
 const AppBar = () => {
   const { toggle } = useSidenav();
@@ -28,14 +28,14 @@ const AppBar = () => {
       <Box
         paddingX={5}
         paddingY={2.5}
-        boxShadow="base"
-        maxHeight="60px"
-        display="flex"
-        justifyContent="space-between"
-        backgroundColor="white"
-        position="sticky"
-        top="0"
-        zIndex="2"
+        boxShadow='base'
+        maxHeight='60px'
+        display='flex'
+        justifyContent='space-between'
+        backgroundColor='white'
+        position='sticky'
+        top='0'
+        zIndex='2'
       >
         <Button onClick={toggle}>
           <FontAwesomeIcon icon={faBars} />
@@ -44,21 +44,21 @@ const AppBar = () => {
         <Menu>
           <MenuButton>
             <Avatar
-              bg="teal.500"
-              fontSize="1rem"
-              width={"40px"}
-              height={"40px"}
+              bg='teal.500'
+              fontSize='1rem'
+              width={'40px'}
+              height={'40px'}
               icon={<FontAwesomeIcon icon={faUser} />}
             />
           </MenuButton>
           <MenuList>
-            <MenuItem as={ReactLink} to="/settings/profile">
+            <MenuItem as={ReactLink} to='/settings/profile'>
               <Box
-                mr="10px"
-                boxSize="2rem"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
+                mr='10px'
+                boxSize='2rem'
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
               >
                 <FontAwesomeIcon icon={faUser} />
               </Box>
@@ -66,11 +66,11 @@ const AppBar = () => {
             </MenuItem>
             <MenuItem onClick={logout}>
               <Box
-                mr="10px"
-                boxSize="2rem"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
+                mr='10px'
+                boxSize='2rem'
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
               >
                 <FontAwesomeIcon icon={faRightToBracket} />
               </Box>
@@ -83,15 +83,15 @@ const AppBar = () => {
   }
 
   return (
-    <Box paddingX={5} paddingY={2.5} boxShadow="base">
-      <List display="flex" justifyContent="space-between">
+    <Box paddingX={5} paddingY={2.5} boxShadow='base'>
+      <List display='flex' justifyContent='space-between'>
         <ListItem>
-          <Link as={ReactLink} to="/">
+          <Link as={ReactLink} to='/'>
             Home
           </Link>
         </ListItem>
         <ListItem>
-          <Link as={ReactLink} to="/auth/login">
+          <Link as={ReactLink} to='/auth/login'>
             Iniciar sessión
           </Link>
         </ListItem>

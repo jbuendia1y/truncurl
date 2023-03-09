@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { AuthCtx } from "../contexts";
-import { AuthCtxValue } from "../contexts/auth.context";
-import { AuthService } from "../services";
+import { useEffect, useState } from 'react';
+import { AuthCtx } from '../contexts';
+import { AuthCtxValue } from '../contexts/auth.context';
+import { AuthService } from '../services';
 
 const AuthProvider = (props: { children: any }) => {
-  const [auth, setAuth] = useState<Omit<Omit<AuthCtxValue, "login">, "logout">>(
+  const [auth, setAuth] = useState<Omit<Omit<AuthCtxValue, 'login'>, 'logout'>>(
     {
       user: undefined,
       token: undefined,
@@ -29,7 +29,7 @@ const AuthProvider = (props: { children: any }) => {
       });
   }, []);
 
-  const login: AuthCtxValue["login"] = async (username, password) => {
+  const login: AuthCtxValue['login'] = async (username, password) => {
     const authService = new AuthService();
 
     const { access_token, user } = await authService.login(username, password);
@@ -40,7 +40,7 @@ const AuthProvider = (props: { children: any }) => {
     });
   };
 
-  const logout: AuthCtxValue["logout"] = async () => {
+  const logout: AuthCtxValue['logout'] = async () => {
     const authService = new AuthService();
     await authService.logout();
 

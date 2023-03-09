@@ -1,6 +1,6 @@
-import { Box, Text } from "@chakra-ui/react";
-import { ILink } from "../models";
-import { formatDate } from "../utils";
+import { Box, Text } from '@chakra-ui/react';
+import { ILink } from '../models';
+import { formatDate } from '../utils';
 
 interface Props {
   data: ILink;
@@ -12,11 +12,11 @@ const LinkCard = (props: Props) => {
 
   return (
     <Box onClick={() => onClick(data.hash)}>
-      <Text fontSize="sm" colorScheme="gray" opacity={0.5}>
+      <Text fontSize='sm' colorScheme='gray' opacity={0.5}>
         {formatDate(data.createdAt)}
       </Text>
-      <Text fontSize="2xl">{data.hash}</Text>
-      <Text fontSize="sm">{data.url}</Text>
+      <Text fontSize='2xl'>{data.hash}</Text>
+      <Text fontSize='sm'>{data.url}</Text>
     </Box>
   );
 };

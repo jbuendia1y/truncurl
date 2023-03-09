@@ -1,2 +1,2 @@
-export { default as Profile } from "./Profile";
-export { default as Webhooks } from "./Webhooks";
+export { default as Profile } from './Profile';
+export { default as Webhooks } from './Webhooks';
