@@ -65,6 +65,7 @@ export class AuthService {
       user,
     };
   }
+
   async logout() {
     this.token = null;
     this.user = null;
