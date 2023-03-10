@@ -1,4 +1,5 @@
 export interface IEndpointLink {
+  _id: string;
   name?: string;
   url: string;
   hash: string;
