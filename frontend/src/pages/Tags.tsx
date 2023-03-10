@@ -12,24 +12,30 @@ import {
 import { faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { AppBar, Sidenav } from '../components';
+import { AppBar, CreateTag, DeleteTag, EditTag, Sidenav } from '../components';
+import { useTags } from '../hooks';
+import { ITag } from '../models';
 
 const Tags = () => {
+  const { tags } = useTags();
   const [selecteds, setSelecteds] = useState<string[]>([]);
+
+  const [open, setOpen] = useState({
+    create: false,
+    edit: false,
+    delete: false,
+  });
 
   const onChange = (value: string[]) => {
     setSelecteds(value);
   };
 
-  const onDelete = () => {
-    alert('Estás seguro de eliminar ' + selecteds.length + ' etiquetas');
+  const onOpen = (key: keyof typeof open) => {
+    return () => setOpen((v) => ({ ...v, [key]: true }));
   };
 
-  const onEdit = () => {};
-
-  const MockTag = {
-    id: '2d35dv64hbC',
-    name: 'Social',
+  const onClose = (key: keyof typeof open) => {
+    return () => setOpen((v) => ({ ...v, [key]: false }));
   };
 
   return (
@@ -48,6 +54,7 @@ const Tags = () => {
                 colorScheme='blue'
                 variant='solid'
                 size='sm'
+                onClick={onOpen('create')}
               >
                 Añadir
               </Button>
@@ -57,6 +64,7 @@ const Tags = () => {
                 variant='outline'
                 size='sm'
                 isDisabled={selecteds.length !== 1}
+                onClick={onOpen('edit')}
               >
                 Editar
               </Button>
@@ -66,25 +74,38 @@ const Tags = () => {
                 variant='outline'
                 size='sm'
                 isDisabled={selecteds.length === 0}
-                onClick={onDelete}
+                onClick={onOpen('delete')}
               >
                 Eliminar
               </Button>
             </Stack>
           </Flex>
+          {tags && selecteds.length === 1 && (
+            <EditTag
+              open={open.edit}
+              onClose={onClose('edit')}
+              tag={tags.find((v) => v.id === selecteds[0]) as ITag}
+            />
+          )}
+          {open.delete && selecteds && (
+            <DeleteTag
+              open={open.delete}
+              onClose={onClose('delete')}
+              tags={selecteds}
+            />
+          )}
+          <CreateTag open={open.create} onClose={onClose('create')} />
           <Stack direction='row' marginY={2.5}>
             <Text fontWeight='bold'>Total: 2</Text>
             <Text fontWeight='bold'>Seleccionados: {selecteds.length}</Text>
           </Stack>
           <CheckboxGroup onChange={onChange}>
             <Stack>
-              {Array(8)
-                .fill(MockTag)
-                .map((v, idx) => (
-                  <Checkbox key={v.id + idx} value={v.id + idx}>
-                    {v.name} {idx + 1}
-                  </Checkbox>
-                ))}
+              {tags?.map((v) => (
+                <Checkbox key={v.id} value={v.id}>
+                  {v.name}
+                </Checkbox>
+              ))}
             </Stack>
           </CheckboxGroup>
         </Container>
