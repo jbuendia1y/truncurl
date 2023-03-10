@@ -5,5 +5,8 @@ export { default as LinkCard } from './LinkCard';
 export { default as LinkFilters } from './LinkFilters';
 export { default as LinkView } from './LinkView';
 export { default as Sidenav } from './Sidenav';
+export { default as CreateTag } from './CreateTag';
+export { default as EditTag } from './EditTag';
+export { default as DeleteTag } from './DeleteTag';
 
 export { default as ProtectedRoute } from './ProtectedRoute';
