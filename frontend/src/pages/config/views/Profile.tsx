@@ -13,15 +13,15 @@ import {
   Heading,
   Input,
   Stack,
-  useMediaQuery,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDisplay } from '../../../hooks';
 
 const Profile = () => {
   // Puede ser un contexto para no llamar a este hook
-  const [isLarger] = useMediaQuery('(min-width: 1024px)');
-  const [open, setOpen] = useState(true);
+  const { isLargerThan900: isLarger } = useDisplay();
+  const [open, setOpen] = useState(!isLarger);
   const { register } = useForm();
 
   const onClose = () => {

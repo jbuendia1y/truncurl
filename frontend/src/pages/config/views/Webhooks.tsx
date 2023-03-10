@@ -21,6 +21,7 @@ import {
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import { useDisplay } from '../../../hooks';
 
 const WebhooksTable = () => {
   return (
@@ -59,9 +60,8 @@ const WebhooksTable = () => {
 };
 
 const Webhooks = () => {
-  // Puede ser un contexto para no llamar a este hook
-  const [isLarger] = useMediaQuery('(min-width: 1024px)');
-  const [open, setOpen] = useState(true);
+  const { isLargerThan900: isLarger } = useDisplay();
+  const [open, setOpen] = useState(!isLarger);
 
   const onClose = () => {
     setOpen((v) => !v);

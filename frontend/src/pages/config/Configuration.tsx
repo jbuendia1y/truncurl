@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { Outlet, Link as ReactLink } from 'react-router-dom';
 import { AppBar, Sidenav } from '../../components';
+import { DisplayProvider } from '../../providers';
 
 const Configuration = () => {
   return (
@@ -37,7 +38,9 @@ const Configuration = () => {
               </ListItem>
             </List>
           </Box>
-          <Outlet />
+          <DisplayProvider>
+            <Outlet />
+          </DisplayProvider>
         </Container>
       </Box>
     </Box>
