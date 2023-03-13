@@ -2,6 +2,7 @@ import { Box, Heading, Skeleton } from '@chakra-ui/react';
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
 import { useAnalytics } from '../../../hooks';
+import { formatDate } from '../../../utils';
 
 const VisitsPerDay = () => {
   const { analytics, loading } = useAnalytics();
@@ -10,10 +11,7 @@ const VisitsPerDay = () => {
 
   const base = analytics.visitsPerDay;
   const data = base.map((v) => v.count);
-  const categories = base.map((v) => {
-    const int = new Intl.DateTimeFormat();
-    return int.format(v.date);
-  });
+  const categories = base.map((v) => formatDate(v.date));
 
   const options: ApexOptions = {
     chart: {
