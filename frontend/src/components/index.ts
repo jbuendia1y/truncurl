@@ -10,3 +10,4 @@ export { default as EditTag } from './EditTag';
 export { default as DeleteTag } from './DeleteTag';
 
 export { default as ProtectedRoute } from './ProtectedRoute';
+export { default as LazyLoadRoute } from './LazyLoadRoute';

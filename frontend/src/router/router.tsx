@@ -1,17 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { ProtectedRoute } from '../components';
-import {
-  Configuration,
-  EnterCode,
-  Home,
-  Links,
-  Login,
-  NewPassword,
-  RecoverPassword,
-  Register,
-  Tags,
-} from '../pages';
-import { Profile, Webhooks } from '../pages/config/views';
+import { LazyLoadRoute, ProtectedRoute } from '../components';
+import { Home } from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -23,53 +12,47 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'login',
-        element: <Login />,
+        element: LazyLoadRoute('', 'Login'),
       },
       {
         path: 'register',
-        element: <Register />,
+        element: LazyLoadRoute('', 'Register'),
       },
       {
         path: 'recover-password',
         children: [
           {
             path: '',
-            element: <RecoverPassword />,
+            element: LazyLoadRoute('', 'RecoverPassword'),
           },
           {
             path: 'code',
-            element: <EnterCode />,
+            element: LazyLoadRoute('', 'EnterCode'),
           },
           {
             path: 'reset',
-            element: <NewPassword />,
+            element: LazyLoadRoute('', 'NewPassword'),
           },
         ],
       },
     ],
   },
   {
+    path: '/dashboard',
+    element: LazyLoadRoute('', 'Dashboard'),
+  },
+  {
     path: '/links',
-    element: (
-      <ProtectedRoute>
-        <Links />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{LazyLoadRoute('', 'Links')}</ProtectedRoute>,
   },
   {
     path: '/tags',
-    element: (
-      <ProtectedRoute>
-        <Tags />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{LazyLoadRoute('', 'Tags')}</ProtectedRoute>,
   },
   {
     path: '/settings',
     element: (
-      <ProtectedRoute>
-        <Configuration />
-      </ProtectedRoute>
+      <ProtectedRoute>{LazyLoadRoute('', 'Configuration')}</ProtectedRoute>
     ),
     children: [
       {
@@ -78,11 +61,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: LazyLoadRoute('config/views', 'Profile'),
       },
       {
         path: 'webhooks',
-        element: <Webhooks />,
+        element: LazyLoadRoute('config/views', 'Webhooks'),
       },
     ],
   },
