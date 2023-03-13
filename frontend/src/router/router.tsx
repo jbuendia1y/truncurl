@@ -12,26 +12,26 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'login',
-        element: LazyLoadRoute('', 'Login'),
+        element: LazyLoadRoute('Login'),
       },
       {
         path: 'register',
-        element: LazyLoadRoute('', 'Register'),
+        element: LazyLoadRoute('Register'),
       },
       {
         path: 'recover-password',
         children: [
           {
             path: '',
-            element: LazyLoadRoute('', 'RecoverPassword'),
+            element: LazyLoadRoute('RecoverPassword'),
           },
           {
             path: 'code',
-            element: LazyLoadRoute('', 'EnterCode'),
+            element: LazyLoadRoute('EnterCode'),
           },
           {
             path: 'reset',
-            element: LazyLoadRoute('', 'NewPassword'),
+            element: LazyLoadRoute('NewPassword'),
           },
         ],
       },
@@ -39,21 +39,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: LazyLoadRoute('', 'Dashboard'),
+    element: LazyLoadRoute('Dashboard'),
   },
   {
     path: '/links',
-    element: <ProtectedRoute>{LazyLoadRoute('', 'Links')}</ProtectedRoute>,
+    element: <ProtectedRoute>{LazyLoadRoute('Links')}</ProtectedRoute>,
   },
   {
     path: '/tags',
-    element: <ProtectedRoute>{LazyLoadRoute('', 'Tags')}</ProtectedRoute>,
+    element: <ProtectedRoute>{LazyLoadRoute('Tags')}</ProtectedRoute>,
   },
   {
     path: '/settings',
-    element: (
-      <ProtectedRoute>{LazyLoadRoute('', 'Configuration')}</ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{LazyLoadRoute('Configuration')}</ProtectedRoute>,
     children: [
       {
         path: '',
@@ -61,11 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: LazyLoadRoute('config/views', 'Profile'),
+        element: LazyLoadRoute('Profile'),
       },
       {
         path: 'webhooks',
-        element: LazyLoadRoute('config/views', 'Webhooks'),
+        element: LazyLoadRoute('Webhooks'),
       },
     ],
   },

@@ -1,13 +1,8 @@
 import { lazy, Suspense } from 'react';
 
-const LazyLoadRoute = (path: string, component?: string) => {
-  let computedPath = '../pages';
-  if (path.length !== 0) computedPath += '/' + path;
-
+const LazyLoadRoute = (component: keyof typeof import('../pages/index')) => {
   const LazyElement = lazy(() =>
-    import(computedPath).then((m) =>
-      component ? { default: m[component] } : m
-    )
+    import('../pages').then((m) => ({ default: m[component] }))
   );
 
   return (
