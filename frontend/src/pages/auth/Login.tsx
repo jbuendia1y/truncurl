@@ -75,7 +75,7 @@ const Login = () => {
           </Button>
         </form>
         <Link
-          href='auth/password/recover'
+          href='/auth/recover-password'
           color='blue.500'
           display='block'
           marginY={2.5}
