@@ -1,8 +1,17 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Heading, Skeleton } from '@chakra-ui/react';
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
+import { useAnalytics } from '../../../hooks';
 
 const UsedDevices = () => {
+  const { analytics, loading } = useAnalytics();
+
+  if (!analytics || loading) return <Skeleton width='100%' height={150} />;
+
+  const base = analytics.usedDevices.sort((a, b) => b.count - a.count);
+  const data = base.map((v) => v.count);
+  const categories = base.map((v) => v.device);
+
   const options: ApexOptions = {
     chart: {
       id: 'used-devices',
@@ -19,7 +28,7 @@ const UsedDevices = () => {
     },
     dataLabels: { enabled: false },
     xaxis: {
-      categories: ['Android', 'Apple', 'Windows', 'Mac', 'Linux'],
+      categories: categories,
       labels: { show: false },
     },
   };
@@ -27,7 +36,7 @@ const UsedDevices = () => {
   const series: ApexOptions['series'] = [
     {
       name: 'usados',
-      data: [200, 150, 150, 100, 20],
+      data: data,
     },
   ];
 

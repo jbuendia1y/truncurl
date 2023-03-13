@@ -1,8 +1,20 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Heading, Skeleton } from '@chakra-ui/react';
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
+import { useAnalytics } from '../../../hooks';
 
 const VisitsPerDay = () => {
+  const { analytics, loading } = useAnalytics();
+
+  if (!analytics || loading) return <Skeleton width='100%' height={300} />;
+
+  const base = analytics.visitsPerDay;
+  const data = base.map((v) => v.count);
+  const categories = base.map((v) => {
+    const int = new Intl.DateTimeFormat();
+    return int.format(v.date);
+  });
+
   const options: ApexOptions = {
     chart: {
       id: 'visits-per-day',
@@ -10,13 +22,13 @@ const VisitsPerDay = () => {
     },
     yaxis: { show: false },
     xaxis: {
-      categories: ['01/02/22', '02/02/22', '03/02/22', '04/02/22', '05/02/22'],
+      categories: categories,
     },
   };
   const series: ApexOptions['series'] = [
     {
       name: 'visitas',
-      data: [100, 200, 40, 50, 100],
+      data: data,
     },
   ];
 

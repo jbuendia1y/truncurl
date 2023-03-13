@@ -1,8 +1,17 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Heading, Skeleton } from '@chakra-ui/react';
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
+import { useAnalytics } from '../../../hooks';
 
 const MoreVisits = () => {
+  const { analytics, loading } = useAnalytics();
+
+  if (!analytics || loading) return <Skeleton height={150} />;
+
+  const base = analytics.moreVisits.sort((a, b) => b.count - a.count);
+  const data = base.map((v) => v.count);
+  const categories = base.map((v) => v.link.name || v.link.hash);
+
   const options: ApexOptions = {
     chart: {
       id: 'more-visits',
@@ -19,7 +28,7 @@ const MoreVisits = () => {
     },
     dataLabels: { enabled: false },
     xaxis: {
-      categories: ['Google', 'Facebook', 'Wordpress', 'php', 'Java'],
+      categories: categories,
       labels: {
         show: false,
       },
@@ -29,7 +38,7 @@ const MoreVisits = () => {
   const series: ApexOptions['series'] = [
     {
       name: 'visitas',
-      data: [100, 50, 30, 15, 2],
+      data: data,
     },
   ];
 
@@ -39,7 +48,7 @@ const MoreVisits = () => {
         Más visitas
       </Heading>
       <Box>
-        <Chart type='bar' options={options} series={series} />
+        <Chart type='bar' height={150} options={options} series={series} />
       </Box>
     </Box>
   );
