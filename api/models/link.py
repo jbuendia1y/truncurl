@@ -21,9 +21,9 @@ class CreateLink(BaseModel):
     name: Optional[str] = None
     user_id: Optional[str] = None
     hash: Optional[str] = None
-    created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now())
+    created_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now())
 
-    
     def hash_url(self):
         to_hash = self.url
         if self.user_id:
@@ -31,6 +31,7 @@ class CreateLink(BaseModel):
 
         self.hash = utils.hash_str(to_hash)
         return self
+
 
 class FilterLinks(BaseModel):
     user_id: str

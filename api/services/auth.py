@@ -22,7 +22,7 @@ class AuthService:
         return token
 
     def login(self, username: str, password: str) -> LoginResponse:
-        user = self.users_service.find_one_by({ "username":  username })
+        user = self.users_service.find_one_by({"username": username})
         if not user:
             raise HTTPException(status_code=400, detail="Wrong credentials")
 

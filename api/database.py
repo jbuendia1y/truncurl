@@ -1,5 +1,5 @@
 from pymongo import MongoClient, TEXT
-from config import MONGO_URI,PROD
+from config import MONGO_URI, PROD
 
 
 client = MongoClient(MONGO_URI)

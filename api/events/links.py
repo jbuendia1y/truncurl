@@ -22,10 +22,12 @@ class LinkEventData(BaseModel):
     user: Optional[User] = None
     user_id: Optional[str] = None
 
+
 class LinkEvent(BaseModel):
     event_type: LinkEventType
     data: LinkEventData
-    created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now())
+    created_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now())
 
 
 def emit_link_event(event_type: LinkEventType, data: LinkEvent):

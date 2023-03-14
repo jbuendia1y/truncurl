@@ -16,9 +16,9 @@ import listeners
 from events.links import LinkEventType, LinkEvent, LinkEventData, emit_link_event
 
 
-
 oauth_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
-optional_oauth_scheme = OAuth2PasswordBearer(tokenUrl="auth/login", auto_error=False)
+optional_oauth_scheme = OAuth2PasswordBearer(
+    tokenUrl="auth/login", auto_error=False)
 app = FastAPI()
 
 
@@ -27,10 +27,11 @@ def get_current_user(token: str = Depends(oauth_scheme)):
     user = auth_service.profile(token)
     return user
 
+
 def get_optional_user(token: str = Depends(optional_oauth_scheme)):
     if not token:
         return None
-      
+
     auth_service = AuthService()
     user = auth_service.profile(token)
     return user
@@ -74,7 +75,8 @@ def analytics():
 
 
 @app.post('/links')
-def create_link(body: CreateLink, request: Request, user: User | None = Depends(get_optional_user)) -> Link:
+def create_link(body: CreateLink, request: Request, user: User |
+                None = Depends(get_optional_user)) -> Link:
     link_service = LinksService()
 
     body.user_id = user.id if user else None
@@ -88,7 +90,7 @@ def create_link(body: CreateLink, request: Request, user: User | None = Depends(
         event_type=LinkEventType.LINK_CREATED,
         data=LinkEventData(
             ip=request.client.host,
-            link= data,
+            link=data,
             user=user,
             user_id=body.user_id
         )
