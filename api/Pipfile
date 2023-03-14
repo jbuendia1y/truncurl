@@ -3,6 +3,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+format = "find -type f -name '*.py' -exec autopep8 --in-place --aggressive --aggressive '{}' \;"
+
 [packages]
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
