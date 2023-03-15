@@ -4,8 +4,9 @@ from services.users import UsersService
 from database import db
 from typing import List
 from bson import ObjectId
-
+from datetime import datetime, timedelta
 from fastapi import HTTPException
+from events.links import LinkEventType
 
 import pymongo.errors
 
@@ -74,5 +75,20 @@ class LinksService:
 
         return self.adapter(doc)
 
-    def get_analytics(self):
-        pass
+    events_collection = db.link_events
+
+    def get_analytics(self, event_type: LinkEventType, user_id: str):
+        today = datetime.today()
+
+        match_stage = {
+            "$match": {
+                "event_type": event_type.value,
+                "created_at": {
+                    "$gte": today - timedelta(days=30),
+                },
+                "link.user.id": user_id
+            }
+        }
+
+        result = self.events_collection.aggregate([match_stage])
+        return result
