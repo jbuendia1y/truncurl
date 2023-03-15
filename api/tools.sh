@@ -1,3 +1,4 @@
+docker stop mymongodb
 docker rm mymongodb
 
 # MongoDB
@@ -7,9 +8,10 @@ docker \
     -e MONGO_INITDB_ROOT_USERNAME=root \
     -e MONGO_INITDB_ROOT_PASSWORD=example \
     -p 27017:27017 \
-    -v "$(pwd)/data/mongodata:/data/db" \
+    -v "$HOME/url-shortener/data/mongodata:/data/db" \
     -d mongo
 
+docker stop myredisdb
 docker rm myredisdb
 
 # RedisDB
